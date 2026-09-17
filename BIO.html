@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lidah Mertua - Kelompok 2</title>
+
+    <style>
+        :root {
+            --bg: #f1f8f1;
+            --card: #ffffff;
+            --primary: #397a52;
+            --secondary: #b8dfc2;
+            --text: #1d3326;
+            --muted: #66806d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: var(--primary);
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h2 {
+            font-size: 1.3rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 70px 20px 50px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .scientific-name {
+            font-style: italic;
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        /* BUTTON */
+        .more-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .more-button:hover {
+            background: #2d6342;
+            transform: translateY(-2px);
+        }
+
+        /* DROPDOWN */
+        .more-content {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: var(--card);
+            border-radius: 15px;
+            border: 1px solid #dce8df;
+            text-align: left;
+        }
+
+        .more-content.show {
+            display: block;
+        }
+
+        /* STATIC TAXONOMY */
+        .taxonomy-static {
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto 0;
+        }
+
+        .taxonomy-title {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .taxonomy-content {
+            margin-top: 20px;
+            padding: 25px;
+            background: var(--card);
+            border-radius: 15px;
+            border: 1px solid #dce8df;
+            text-align: left;
+        }
+
+        /* MAIN SECTION */
+        section {
+            width: 85%;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+        }
+
+        section > h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        /* HABITAT CARD */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #dce8df;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        /* IMAGE + CARA MENANAM */
+        .plant-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            align-items: stretch;
+            margin-bottom: 35px;
+        }
+
+        .plant-image {
+            background: var(--secondary);
+            border-radius: 20px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            overflow: hidden;
+        }
+
+        .plant-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .plant-text {
+            background: var(--card);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #dce8df;
+        }
+
+        .plant-text h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .plant-text p {
+            color: var(--muted);
+        }
+
+        /* DROPDOWN SECTIONS */
+        .dropdown-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .dropdown-section + .dropdown-section {
+            margin-top: 25px;
+        }
+
+        /* LISTS */
+        .more-content ol,
+        .more-content ul,
+        .taxonomy-content ul {
+            padding-left: 25px;
+        }
+
+        .more-content li {
+            margin-bottom: 15px;
+        }
+
+        .more-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .more-content strong,
+        .taxonomy-content strong {
+            color: var(--primary);
+        }
+
+        /* TAXONOMY LIST */
+        .taxonomy-list {
+            list-style: none;
+            padding-left: 0 !important;
+        }
+
+        .taxonomy-list li {
+            background: #f1f8f1;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .taxonomy-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CIRI-CIRI */
+        .characteristic {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #dce8df;
+        }
+
+        .characteristic:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .characteristic h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .characteristic p {
+            color: var(--muted);
+        }
+
+        .characteristic ul {
+            margin-top: 10px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 60px;
+        }
+
+        /* MOBILE */
+        @media (max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            section {
+                width: 90%;
+            }
+
+            .plant-info {
+                grid-template-columns: 1fr;
+            }
+
+            .plant-image {
+                min-height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <h2>KELOMPOK 2</h2>
+
+        <ul>
+            <li><a href="#home">Taksonomi</a></li>
+            <li><a href="#informasi">Informasi</a></li>
+            <li><a href="#contact">Daftar Pustaka</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <header class="hero" id="home">
+
+        <h1>Lidah Mertua</h1>
+
+        <p class="scientific-name">
+            Sansevieria trifasciata Prain
+        </p>
+
+
+        <!-- TAKSONOMI -->
+        <div class="taxonomy-static">
+
+            <div class="taxonomy-title">
+                Taksonomi
+            </div>
+
+            <div class="taxonomy-content">
+
+                <ul class="taxonomy-list">
+
+                    <li>
+                        <strong>Kingdom:</strong> Plantae
+                    </li>
+
+                    <li>
+                        <strong>Divisi:</strong> Magnoliophyta
+                    </li>
+
+                    <li>
+                        <strong>Kelas:</strong> Liliopsida
+                    </li>
+
+                    <li>
+                        <strong>Ordo:</strong> Asparagales
+                    </li>
+
+                    <li>
+                        <strong>Famili:</strong> Asparagaceae
+                    </li>
+
+                    <li>
+                        <strong>Genus:</strong> Sansevieria
+                    </li>
+
+                    <li>
+                        <strong>Spesies:</strong> Sansevieria trifasciata Prain
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- INFORMASI -->
+    <section id="informasi">
+
+        <h2>Informasi Lidah Mertua</h2>
+
+
+        <!-- HABITAT -->
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>🌍 Habitat</h3>
+
+                <p>
+                    Afrika Barat tropis
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARA MENANAM + FOTO -->
+        <div class="plant-info">
+
+            <div class="plant-image">
+                <img src="lidahmertua.jpeg" alt="Tanaman lidah mertua">
+            </div>
+
+            <div class="plant-text">
+
+                <h2>Cara Menanam</h2>
+
+                <p>
+                    Tanaman yang sangat berat ini membutuhkan wadah berat
+                    dengan drainase baik. Isi wadah dengan tanah pot
+                    berkualitas baik, lalu letakkan tanaman di dalam pot,
+                    tekan sedikit tanah di sekitar tanaman dan siram sedikit.
+                    Waktu terbaik menanam tanaman lidah mertua adalah pada
+                    musim semi atau pada Maret hingg Juni di Indonesia.
+                    Tanaman lidah mertua tahan banting di Zona Ketahanan
+                    Tanaman USDA 10-12. Di daerah lain di negara tempatnya
+                    tumbuh sebagai tanaman hias, Anda dapat memindahkan
+                    wadah tanaman ular ke luar selama musim panas dan kembali
+                    ke dalam ruangan sebelum cuaca dingin tiba.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MANFAAT -->
+        <div class="dropdown-section">
+
+            <button class="more-button" id="benefitsButton">
+                Manfaat ✨
+            </button>
+
+            <div class="more-content show" id="benefitsContent">
+
+                <ol>
+
+                    <li>
+                        Menyaring Senyawa Beracun (Polutan) di Udara
+                    </li>
+
+                    <li>
+                        Memproduksi Oksigen di Malam Hari
+                    </li>
+
+                    <li>
+                        Mengurangi Gejala Alergi dan Asma
+                    </li>
+
+                    <li>
+                        Membantu Mencegah Sick Building Syndrome (SBS)
+                    </li>
+
+                    <li>
+                        Menjaga Kelembapan Udara Ruangan Secara Alami
+                    </li>
+
+                    <li>
+                        Meningkatkan Kesehatan Mental dan Menurunkan Stres
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+
+        <!-- CIRI-CIRI -->
+        <div class="dropdown-section">
+
+            <button class="more-button" id="characteristicsButton">
+                Ciri-Ciri ✨
+            </button>
+
+            <div class="more-content show" id="characteristicsContent">
+
+
+                <div class="characteristic">
+
+                    <h3>1. Variasi Warna</h3>
+
+                    <p>
+                        Pada dasarnya, lidah mertua memiliki warna hijau.
+                        Namun ternyata masih ada variasi warna lain.
+                        Misalnya adalah warna hijau abu-abu, hijau muda,
+                        hijau tua, hijau kuning, hingga kuning putih.
+                        Selain itu, pada daunnya juga terdapat garis-garis
+                        yang tak beraturan.
+                    </p>
+
+                </div>
+
+
+                <div class="characteristic">
+
+                    <h3>2. Bentuk Daun</h3>
+
+                    <p>
+                        Pada umumnya, bentuk daun lidah mertua adalah tegak,
+                        memanjang, runcing, dan keras.
+                    </p>
+
+                </div>
+
+
+                <div class="characteristic">
+
+                    <h3>3. Terdapat Dua Jenis</h3>
+
+                    <ul>
+
+                        <li>
+                            Lidah mertua daun panjang memiliki ukuran daun
+                            hingga 50-75 cm.
+                        </li>
+
+                        <li>
+                            Lidah mertua daun pendek memiliki panjang 8 cm
+                            dan lebar 3-6 cm.
+                        </li>
+
+                    </ul>
+
+                    <p>
+                        Dengan perbedaan ukuran ini, pemiliknya bisa
+                        menyesuaikan penempatannya lebih mudah.
+                    </p>
+
+                </div>
+
+
+                <div class="characteristic">
+
+                    <h3>4. Mudah Beradaptasi</h3>
+
+                    <p>
+                        Banyak orang menyukai tanaman lidah mertua,
+                        karena perawatannya relatif mudah. Sebab,
+                        tanaman lidah mertua menyimpan cadangan air
+                        pada tubuhnya, sehingga pemiliknya bisa
+                        menyiramnya lebih sedikit.
+                    </p>
+
+                </div>
+
+
+                <div class="characteristic">
+
+                    <h3>5. Banyak Spesies</h3>
+
+                    <p>
+                        Ciri-ciri lidah mertua yang terakhir adalah memiliki
+                        banyak spesies yang berasal dari keturunan asli
+                        serta hibrida. Bahkan, jumlah spesiesnya mencapai
+                        70 jenis. Nah, untuk spesies hibrida sendiri berasal
+                        dari hasil persilangan yang dilakukan oleh manusia.
+                        Hal inilah yang terkadang membuat orang sulit
+                        untuk membedakannya.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARA MERAWAT -->
+        <div class="dropdown-section">
+
+            <button class="more-button" id="careButton">
+                Cara Merawat ✨
+            </button>
+
+            <div class="more-content show" id="careContent">
+
+                <ol>
+
+                    <li>
+                        Tanaman ini paling ideal diletakkan di dekat jendela
+                        atau area luar ruangan yang memiliki kanopi.
+                        Pastikan untuk menyinarinya setiap dua hari sekali.
+                    </li>
+
+                    <li>
+                        Tanaman lidah mertua butuh pupuk untuk membantunya
+                        tumbuh subur. Jenis pupuk yang paling baik untuk
+                        tanaman ini adalah pupuk organik. Dengan demikian,
+                        kondisi media tanam tidak akan menjadi lembap yang
+                        bisa membuat tanaman membusuk.
+                    </li>
+
+                    <li>
+                        Rutin menyingkirkan hama maupun gulma. Untuk gulma
+                        berupa rumput liar, cabutlah hingga ke akarnya.
+                        Bila perlu semprotkan obat anti gulma dan hama
+                        untuk pencegahan. Alternatif lain adalah dengan
+                        membersihkan pot dan menyediakan media tanam yang baru.
+                    </li>
+
+                    <li>
+                        Media tanam yang digunakan harus mampu menyerap
+                        air dengan cepat. Pilihan media tanam yang tepat
+                        adalah sekam bakar, pasir malang, dan pakis.
+                        Perhatikan juga pot, pot yang baik adalah pot
+                        tanaman dengan lubang di bagian bawah.
+                    </li>
+
+                    <li>
+                        Saat batang tanaman lidah mertua ada yang mulai
+                        membusuk, pangkaslah bagian tersebut. Agar
+                        pembusukan tidak menyebar ke bagian lainnya.
+                        Pemangkasan juga dibutuhkan ketika batang tanaman
+                        lidah mertua sudah terlalu panjang hingga keluar pot.
+                        Jika batang yang panjang tersebut masih sehat,
+                        kamu dapat menancapkannya kembali ke media tanam
+                        dan pot baru.
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENYEBAB KERUSAKAN -->
+        <div class="dropdown-section">
+
+            <button class="more-button" id="damageButton">
+                Penyebab Kerusakan ✨
+            </button>
+
+            <div class="more-content show" id="damageContent">
+
+                <ul>
+
+                    <li>
+
+                        <strong>Kelebihan Penyiraman:</strong>
+
+                        <p>
+                            Busuk daun pada Lidah Mertua terutama disebabkan
+                            oleh kelembaban yang berlebihan di tanah, yang
+                            memudahkan perkembangan jamur patogen.
+                        </p>
+
+                    </li>
+
+
+                    <li>
+
+                        <strong>Drainase Buruk:</strong>
+
+                        <p>
+                            Tanah yang drainasenya buruk juga berkontribusi
+                            terhadap busuk daun, karena menyebabkan genangan air.
+                        </p>
+
+                    </li>
+
+
+                    <li>
+
+                        <strong>Patogen Jamur:</strong>
+
+                        <p>
+                            Patogen seperti Phytophthora, Pythium,
+                            Rhizoctonia dapat menyebabkan busuk daun
+                            pada Lidah Mertua.
+                        </p>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- CONTACT -->
+    <section id="contact">
+
+        <h2>Daftar Pustaka</h2>
+
+        <div class="dropdown-section">
+
+            <button class="more-button" id="referenceButton">
+                Daftar Pustaka 🔍
+            </button>
+
+            <div class="more-content" id="referenceContent">
+
+                <p>
+<ul>
+    <li>
+        <strong>Faznur, Lutfi Syauki; Dirgantara Wicaksono; Risa Anjani</strong>
+        <ul>
+            <li>
+                <strong>MLA:</strong>
+                Faznur, Lutfi Syauki, Dirgantara Wicaksono, and Risa Anjani.
+                "Inovasi tanaman Sansevieria (lidah mertua) sebagai sirkulasi udara alami
+                di lingkungan Kampung Bulak Cinangka." Prosiding Seminar Nasional
+                Pengabdian Masyarakat LPPM UMJ. 2020.
+            </li>
+            <li>
+                <strong>APA:</strong>
+                Faznur, L. S., Wicaksono, D., &amp; Anjani, R. (2020, October).
+                Inovasi tanaman Sansevieria (lidah mertua) sebagai sirkulasi udara alami
+                di lingkungan Kampung Bulak Cinangka. In Prosiding Seminar Nasional
+                Pengabdian Masyarakat LPPM UMJ.
+            </li>
+            <li>
+                <strong>ISO 690:</strong>
+                FAZNUR, Lutfi Syauki; WICAKSONO, Dirgantara; ANJANI, Risa.
+                Inovasi tanaman Sansevieria (lidah mertua) sebagai sirkulasi udara alami
+                di lingkungan Kampung Bulak Cinangka. In: Prosiding Seminar Nasional
+                Pengabdian Masyarakat LPPM UMJ. 2020.
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <strong>Saraswati, Desi</strong>
+        <ul>
+            <li>
+                <strong>MLA:</strong>
+                Saraswati, Desi. Merawat Sansevieria. Niaga Swadaya, 2007.
+            </li>
+            <li>
+                <strong>APA:</strong>
+                Saraswati, D. (2007). Merawat Sansevieria. Niaga Swadaya.
+            </li>
+            <li>
+                <strong>ISO 690:</strong>
+                SARASWATI, Desi. Merawat Sansevieria. Niaga Swadaya, 2007.
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <strong>Riksanto, Rolly, et al.</strong>
+        <ul>
+            <li>
+                <strong>MLA:</strong>
+                Riksanto, Rolly, et al. "Pengaruh ekstrak lidah mertua
+                (Sansevieria trifasciata) dalam menurunkan kadar karbon monoksida
+                akibat asap sidestream rokok filter." Al-Iqra Medical Journal:
+                Jurnal Berkala Ilmiah Kedokteran 4.2 (2021): 71-83.
+            </li>
+            <li>
+                <strong>APA:</strong>
+                Riksanto, R., El Furqan, D. F., Amalia, C., Syamsir, N., &amp;
+                Padmawijaya, G. (2021). Pengaruh ekstrak lidah mertua
+                (Sansevieria trifasciata) dalam menurunkan kadar karbon monoksida
+                akibat asap sidestream rokok filter. Al-Iqra Medical Journal:
+                Jurnal Berkala Ilmiah Kedokteran, 4(2), 71-83.
+            </li>
+            <li>
+                <strong>ISO 690:</strong>
+                RIKSANTO, Rolly, et al. Pengaruh ekstrak lidah mertua
+                (Sansevieria trifasciata) dalam menurunkan kadar karbon monoksida
+                akibat asap sidestream rokok filter. Al-Iqra Medical Journal:
+                Jurnal Berkala Ilmiah Kedokteran, 2021, 4.2: 71-83.
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <strong>Rofiqoh, Deva Ainur</strong>
+        <ul>
+            <li>
+                <strong>MLA:</strong>
+                Rofiqoh, Deva Ainur. PENGARUH EKSTRAK TANAMAN LIDAH MERTUA
+                (Sansevieria trifasciata dan Sansevieria cylindrica) DALAM MENYERAP
+                ASAP ROKOK. Diss. UNIVERSITAS ISLAM LAMONGAN, 2023.
+            </li>
+            <li>
+                <strong>APA:</strong>
+                Rofiqoh, D. A. (2023). PENGARUH EKSTRAK TANAMAN LIDAH MERTUA
+                (Sansevieria trifasciata dan Sansevieria cylindrica) DALAM MENYERAP
+                ASAP ROKOK (Doctoral dissertation, UNIVERSITAS ISLAM LAMONGAN).
+            </li>
+            <li>
+                <strong>ISO 690:</strong>
+                ROFIQOH, Deva Ainur. PENGARUH EKSTRAK TANAMAN LIDAH MERTUA
+                (Sansevieria trifasciata dan Sansevieria cylindrica) DALAM MENYERAP
+                ASAP ROKOK. 2023. PhD Thesis. UNIVERSITAS ISLAM LAMONGAN.
+            </li>
+        </ul>
+    </li>
+</ul>
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            X-L Kelompok 2
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function setupDropdown(buttonId, contentId, title) {
+
+            const button = document.getElementById(buttonId);
+            const content = document.getElementById(contentId);
+
+            button.addEventListener("click", function () {
+
+                content.classList.toggle("show");
+
+                if (content.classList.contains("show")) {
+
+                    button.textContent = title + " ✨";
+
+                } else {
+
+                    button.textContent = title + " 🔍";
+
+                }
+
+            });
+
+        }
+
+
+        setupDropdown(
+            "benefitsButton",
+            "benefitsContent",
+            "Manfaat"
+        );
+
+
+        setupDropdown(
+            "characteristicsButton",
+            "characteristicsContent",
+            "Ciri-Ciri"
+        );
+
+
+        setupDropdown(
+            "careButton",
+            "careContent",
+            "Cara Merawat"
+        );
+
+
+        setupDropdown(
+            "damageButton",
+            "damageContent",
+            "Penyebab Kerusakan"
+        );
+
+
+        setupDropdown(
+            "referenceButton",
+            "referenceContent",
+            "Daftar Pustaka"
+        );
+
+    </script>
+
+</body>
+</html>
